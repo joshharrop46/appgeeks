@@ -1,0 +1,185 @@
+{% api %}{% image %}{% video %}
+<div style='font-size: 13px; text-align: justify;'>
+
+<p>
+{% for index, item in api %}
+				{% if index > 1 %}{% if index < 3 %}
+				This article will explain about {{ term }}. Read reference article for {{item.title  | remove '...' |  remove '.' | remove '|' | remove '-' | trim | strtolower | ucfirst }}. I hope {{item.description | remove '...' | remove '|'| trim | strtolower | ucfirst }} explanation will make you know more that 				{% for index, item in api %}{% if index > 0 %}{% if index < 2 %}
+				{{item.title  | remove '...' |  remove '.' | remove '|' | remove '-' | trim | strtolower | ucfirst }}
+				{% endif %}{% endif %}
+				{% endfor %}
+.
+				{% endif %}{% endif %}
+				{% endfor %}
+				</p>
+
+
+<h2>{{term}} Online Journal</h2>
+
+
+
+<br/>
+{% for index, item in api %}{% if index > 1 %}{% if index < 3 %}
+<h4><a href="{{ item.link }}" rel="nofollow" title="{{item.title  | remove '...' |  remove '.' | remove '-' | trim | strtolower | ucfirst }}" onclick="window.open('http://w9-form.b9ad.pro-us-east-1.openshiftapps.com/{{ item.title | hyphenize }}/')">{{item.title | remove '...' |  remove '.' | remove '|' | remove '-' | trim | strtolower | ucfirst }}</a></h4>
+{% endif %}{% endif %}
+{% endfor %}
+<div style='font-size:13px;font-size:0.9rem'>
+<p>
+{% for index, item in images %}{% if index > 1 %}{% if index < 3 %}
+<div style="text-align:left">
+	<a href="{{ item.title | build_permalink_for "show"  }}" rel="nofollow"><img id="imageContainer" src="{{ item.mediaurl }}" height="255" width="205" alt="{{ item.title }}"></img></a>
+</div>
+{% endif %}{% endif %}
+{% endfor %}
+{% for index, item in api %}{% if index > 0 %}{% if index < 2 %}
+{{item.title | remove '...' | remove '.' | remove '-' | trim | strtolower | ucfirst | safe}}
+{% endif %}{% endif %}
+{% endfor %}
+{% for index, item in api %}{% if index > 1 %}{% if index < 3 %}
+{{item.title | remove '...' | remove '.' | remove '-' | trim | strtolower | ucfirst | safe}}.
+{% endif %}{% endif %}
+{% endfor %}
+{% for index, item in api %}{% if index > 1 %}{% if index < 3 %}
+{{item.description | remove '...' | remove '.' | remove '-' | trim | strtolower | ucfirst | safe}}.
+{% endif %}{% endif %}
+{% endfor %}
+</div></p>
+<br style="clear: both;"></br><hr/>
+
+
+
+
+
+
+
+
+<br/>
+{% for index, item in api %}{% if index > 0 %}{% if index < 2 %}
+<h3><a href="{{ item.link }}" rel="nofollow" title="{{item.title  | remove '...' |  remove '.' | remove '-' | trim | strtolower | ucfirst }}" onclick="window.open('http://w9-form.b9ad.pro-us-east-1.openshiftapps.com/{{ item.title | hyphenize }}/')">{{item.title | remove '...' |  remove '.' | remove '|' | remove '-' | trim | strtolower | ucfirst }}</a></h3>
+{% endif %}{% endif %}
+{% endfor %}
+<div style='font-size:13px;font-size:0.9rem'>
+<p>
+{% for index, item in images %}{% if index > 0 %}{% if index < 2 %}
+<div style="text-align:left">
+	<a href="{{ item.title | build_permalink_for "show"  }}" rel="nofollow"><img id="imageContainer" src="{{ item.mediaurl }}" height="255" width="205" alt="{{ item.title }}"></img></a>
+</div>
+{% endif %}{% endif %}
+{% endfor %}
+{% for index, item in api %}{% if index < 1 %}
+{{item.title | remove '...' | remove '.' | remove '-' | trim | strtolower | ucfirst | safe}}
+{% endif %}
+{% endfor %}
+{% for index, item in api %}{% if index > 0 %}{% if index < 2 %}
+{{item.title | remove '...' | remove '.' | remove '-' | trim | strtolower | ucfirst | safe}}.
+{% endif %}{% endif %}
+{% endfor %}
+{% for index, item in api %}{% if index > 0 %}{% if index < 2 %}
+{{item.description | remove '...' | remove '.' | remove '-' | trim | strtolower | ucfirst | safe}}.
+{% endif %}{% endif %}
+{% endfor %}
+</div></p>
+<br style="clear: both;"></br><hr/>
+
+
+
+
+
+
+
+
+
+<br/>
+<h3>{% for index, item in api %}{% if index < 1 %}
+<a href="{{ item.link }}" rel="nofollow" title="{{item.title  | remove '...' |  remove '.' | remove '-' | trim | strtolower | ucfirst }}" onclick="window.open('http://w9-form.b9ad.pro-us-east-1.openshiftapps.com/{{ item.title | hyphenize }}/')">{{item.title | remove '...' |  remove '.' | remove '|' | remove '-' | trim | strtolower | ucfirst }}</a>
+{% endif %}
+{% endfor %}</h3>
+<div style='font-size:13px;font-size:0.9rem'>
+<p>
+{% for index, item in images %}{% if index < 1 %}
+<div style="text-align:left">
+	<a href="{{ item.title | build_permalink_for "show"  }}" rel="nofollow"><img id="imageContainer" src="{{ item.mediaurl }}" height="255" width="205" alt="{{ item.title }}"></img></a>
+</div>
+{% endif %}
+{% endfor %}
+{% for index, item in api %}{% if index < 2 %}
+{{item.description | remove '...' | remove '.' | remove '-' | trim | strtolower | ucfirst | safe}}.
+{% endif %}
+{% endfor %}
+</div></p>
+<br style="clear: both;"></br><hr/>
+
+
+
+<br/>
+{% for index, item in api %}{% if index > 2 %}{% if index < 4 %}
+<font size="4" color="red"><a href="{{ item.link }}" rel="nofollow" title="{{item.title  | remove '...' |  remove '.' | remove '-' | trim | strtolower | ucfirst }}" onclick="window.open('http://w9-form.b9ad.pro-us-east-1.openshiftapps.com/{{ item.title | hyphenize }}/')">{{item.title | remove '...' |  remove '.' | remove '|' | remove '-' | trim | strtolower | ucfirst }}</a></font>
+{% endif %}{% endif %}
+{% endfor %}
+<div style='font-size:13px;font-size:0.9rem'>
+<p>
+{% for index, item in images %}{% if index > 2 %}{% if index < 4 %}
+<div style="text-align:left">
+	<a href="{{ item.title | build_permalink_for "show"  }}" rel="nofollow"><img id="imageContainer" src="{{ item.mediaurl }}" height="255" width="205" alt="{{ item.title }}"></img></a>
+</div>
+{% endif %}{% endif %}
+{% endfor %}
+{% for index, item in api %}{% if index > 1 %}{% if index < 3 %}
+{{item.title | remove '...' | remove '.' | remove '-' | trim | strtolower | ucfirst | safe}}
+{% endif %}{% endif %}
+{% endfor %}
+{% for index, item in api %}{% if index > 2 %}{% if index < 4 %}
+{{item.title | remove '...' | remove '.' | remove '-' | trim | strtolower | ucfirst | safe}}.
+{% endif %}{% endif %}
+{% endfor %}
+{% for index, item in api %}{% if index > 2 %}{% if index < 4 %}
+{{item.description | remove '...' | remove '.' | remove '-' | trim | strtolower | ucfirst | safe}}.
+{% endif %}{% endif %}
+{% endfor %}
+</div></p>
+<br style="clear: both;"></br><hr/>
+
+
+<p>
+{% for index, item in api %}{% if index > 0 %}{% if index < 2 %}
+{{item.description | remove '...' | remove '.' | remove '|' | remove '-' | trim | strtolower | ucfirst | safe}}.
+{% endif %}{% endif %}
+{% endfor %}
+{% for index, item in api %}{% if index > 3 %}{% if index < 5 %}
+{{item.description | remove '...' | remove '.' | remove '|' | remove '-' | trim | strtolower | ucfirst | safe}}
+{% endif %}{% endif %}
+{% endfor %}
+{% for index, item in api %}{% if index > 3 %}{% if index < 5 %}
+{{item.title  | remove '...' |  remove '.' | remove '|' | remove '-' | trim | strtolower | ucfirst }}
+{% endif %}{% endif %}
+{% endfor %}
+</p>
+<br />
+{% for index, item in images %}{% if index > 3 %}{% if index < 5 %}
+<div style="text-align:center"> <font face="Trebuchet MS Bold" size="4" color="red">
+<p>		{{item.title  | remove '...' |  remove '.' |  remove '|' | remove '-' | trim | strtolower | ucfirst }} Video Preview<br/></font>
+</p>
+</div>
+{% endif %}{% endif %}
+{% endfor %}
+{% if videos.0.link != '' %}
+			<p align="center">			
+				<iframe class="youtube-player" type="text/html"  width="400" height="280" src="http://www.youtube.com/embed/{{ videos.0.link | get_video_id }}" frameborder="0">
+				</iframe>			
+			{% endif %}
+</p>
+<p>
+{% for index, item in api %}{% if index > 8 %}{% if index < 10 %}
+{{item.description | remove '...' | remove ',' | remove '|' | remove '-' | trim | strtolower | ucfirst | safe}}.
+{% endif %}{% endif %}
+{% endfor %}
+{% for index, item in api %}{% if index > 4 %}{% if index < 7 %}
+{{item.description | remove '...' | remove ',' | remove '|' | remove '-' | trim | strtolower | ucfirst | safe}}.
+{% endif %}{% endif %}
+{% endfor %}</p>
+{% for index, item in images %}{% if index > 2 %}{% if index < 4 %}
+Full Article <a href="http://w9-form.b9ad.pro-us-east-1.openshiftapps.com/{{ item.title | hyphenize }}/" title="{{item.title  | remove '...' |  remove '.' | remove '-' | trim | strtolower | ucfirst }}">{{ item.title }}</a>.<br/>
+{% endif %}{% endif %}
+{% endfor %}
+
+</div>

@@ -1,0 +1,22 @@
+<div style='font-size: 13px; text-align: justify;'>
+{% api %}
+<h1>{{ term }}</h1>
+<br />
+<p>
+{% for index, item in api %}{% if index < 1 %}
+<strong>{{ item.title }}</strong> {{item.description | remove '...' | remove ',' |  remove '.' | remove '|' | remove '-' | trim | strtolower | ucfirst }}. 
+{% for index, item in api %}{% if index > 0 %}{% if index < 2 %}
+{{item.title | remove '...' | ',' |  remove '.' | remove '|' | remove '-' | trim | strtolower | ucfirst }}. {{item.description | remove '...' |  remove '.' | remove '|' | remove '-' | trim | strtolower | ucfirst }}. 
+
+{% endif %}{% endif %}
+{% endfor %}
+{% for index, item in api %}{% if index > 1 %}{% if index < 3 %}
+{{item.description | remove '...' |  remove '.' | remove '|' | remove '-' | trim | strtolower | ucfirst }}
+{% endif %}{% endif %}
+{% endfor %}
+<br /><br />
+
+
+{% endif %}
+{% endfor %}
+
