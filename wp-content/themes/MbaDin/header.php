@@ -27,7 +27,7 @@
 
 <?php if ( is_search() || is_tag() ) : ?><link rel="canonical" href="<?php bloginfo('url');?>/gps/<?php $ab=strtolower($s); echo str_replace(' ', '-',$ab); ?>/" />
 <meta name="keywords" content="<?php the_search_query(); ?> "/>
-<meta name="description" content="<?echo spp(get_search_query(), 'metadesc.html'); ?> "/>
+<meta name="description" content="<?php echo spp(get_search_query(), 'metadesc.html'); ?> "/>
 
 
 <?php endif ?>
