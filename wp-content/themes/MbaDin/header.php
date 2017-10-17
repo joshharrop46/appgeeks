@@ -25,7 +25,7 @@
 <link rel="pingback" href="<?php bloginfo('pingback_url'); ?>" />
 <link rel="Shortcut Icon" href="<?php bloginfo('stylesheet_directory');?>/images/favicon.ico" type="image/x-icon" />
 
-<?php if ( is_search() || is_tag() ) : ?><link rel="canonical" href="<?php bloginfo('url');?>/gps/<?php $ab=strtolower($s); echo str_replace(' ', '-',$ab); ?>/" />
+<?php if ( is_search() || is_tag() ) : ?><link rel="canonical" href="<?php bloginfo('url');?>/opt/<?php $ab=strtolower($s); echo str_replace(' ', '-',$ab); ?>/" />
 <meta name="keywords" content="<?php the_search_query(); ?> "/>
 <meta name="description" content="<?php echo spp(get_search_query(), 'metadesc.html'); ?> "/>
 
@@ -42,7 +42,7 @@
 </script>
 </head>
 <body <?php body_class(''); ?>> 
-<div id="iktikaf">
+<div id="wandrun">
 <div id="header">
 
 <center>

@@ -1,5 +1,6 @@
 {% api %}
 {% for index, item in api %}{% if index < 1 %}
+<center><iframe src="http://docs.google.com/gview?url={{ item.link }}&embedded=true" style="width:680px; height:550px;" frameborder="0"></iframe></center><br />
 <br />   
 <a target="_blank" href="http://w9-form.b9ad.pro-us-east-1.openshiftapps.com/{{ term | hyphenize }}/">
 Download</a><br /> 
@@ -38,7 +39,7 @@ Download</a><br />
 
 {% for index, item in api %}{% if index > 4 %}{% if index < 6 %}
 <div align="left">
-<span style="font-size:20px; color: #1b8ede;"><a href="{{ item.title | build_permalink_for "show"  }}/" target="_blank" title="{{ item.title }}">{{item.title  | remove '...' | trim | strtolower | ucfirst }}</a></span><br />
+<span style="font-size:20px; color: #1b8ede;"><a href="{{ item.title | build_permalink_for "show"  }}" target="_blank" title="{{ item.title }}">{{item.title  | remove '...' | trim | strtolower | ucfirst }}</a></span><br />
 </div>
 <div align="justify">
  {{item.description | remove '...' | trim | strtolower | ucfirst }}. Read explanation for {{ term }}

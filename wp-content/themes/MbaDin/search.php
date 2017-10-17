@@ -7,7 +7,7 @@ header( "Location: $urlredirect" );
 }
 ?><?php get_header(); ?>
 <div style="clear: both"></div>
-<div id="nugede">
+<div id="nuyunu">
 <?php include (TEMPLATEPATH . '/sidebar-left.php'); ?>
 <div id="content"><div class="post"><div id="breadchumb"><?php if (function_exists('breadcrumbs')) breadcrumbs(); ?></div>
 <?php echo spp(get_search_query( '', false ), 'pdf.html', ' filetype:pdf');?>
