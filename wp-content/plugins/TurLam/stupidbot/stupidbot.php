@@ -63,9 +63,9 @@ class Stupidbot {
 	
 	public function create_category(){
     require_once(ABSPATH . 'wp-admin/includes/taxonomy.php');
-    if(isset($_POST['addcat']))
+    if(isset($_POST['stupidbot_addcat']))
     {
-    	$newcat = $_POST['newcat'];
+    	$newcat = $_POST['stupidbot_newcat'];
     	if(wp_create_category($newcat))
     	{
     		$this->alert = 'New Category Created';

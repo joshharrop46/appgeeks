@@ -3,10 +3,10 @@ class Stupidbot_Campaign_Controller{
     var $stupidbot;
     public function __construct() {
     $this->stupidbot = new Stupidbot;
-    if(isset($_POST['campaign'])) $this->create($_POST['campaign']);
-    if(isset($_POST['campaigns'])) $this->update($_POST['campaigns']);
-    if(isset($_POST['delete_campaign'])) $this->delete($_POST['delete_campaign']);
-    if(isset($_POST['run_campaign'])) $this->run($_POST['run_campaign']);
+    if(isset($_POST['stupidbot_campaign'])) $this->create($_POST['stupidbot_campaign']);
+    if(isset($_POST['stupidbot_campaigns'])) $this->update($_POST['stupidbot_campaigns']);
+    if(isset($_POST['stupidbot_delete_campaign'])) $this->delete($_POST['stupidbot_delete_campaign']);
+    if(isset($_POST['stupidbot_run_campaign'])) $this->run($_POST['stupidbot_run_campaign']);
     }
     
     public function hourly() {
@@ -64,6 +64,7 @@ class Stupidbot_Campaign_Controller{
         $settings = $this->stupidbot->get_settings();
         if($campaign['id']){
         	$keywords = explode("\n", $campaign['keywords']);
+			//print_r($keywords);
             if(count($keywords > 0)){
                 shuffle($keywords);
                 $keywords = array_slice($keywords, 0, $campaign['count']);
@@ -123,6 +124,6 @@ class Stupidbot_Campaign_Controller{
     
     public function post_exist($title) {
         global $wpdb;
-        return $wpdb->get_var($wpdb->prepare("SELECT COUNT(ID) FROM " . $wpdb->prefix . "posts WHERE post_title = '%s'", $title ));
+        return $wpdb->get_var($wpdb->prepare("SELECT COUNT(ID) FROM " . $wpdb->posts . " WHERE post_title = '%s' AND post_type = 'post'", $title ));
     }
 }

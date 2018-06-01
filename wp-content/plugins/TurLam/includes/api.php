@@ -3,15 +3,15 @@ class Api_Tag extends H2o_Node {
     var $term, $cacheKey;
 
     function __construct($argstring, $parser, $pos=0) {
-        list($this->term, $this->hack) = explode(' ', $argstring);
+        list($this->term, $this->hack) = explode(' ', "$argstring ");
     }
-    
-    function get_api_url($term = 'hello world', $hack = ""){        
+
+    function get_api_url($term = 'hello world', $hack = ""){
         $term .= " ".$hack ;
         $term = urlencode($term);
         return "http://www.bing.com/search?q=$term&format=rss";
     }
-      
+
    function fetch($context,$url) {
         $this->url = $url;
         $feed = @file_get_contents($this->url);
@@ -48,12 +48,12 @@ class Api_Tag extends H2o_Node {
         $cache = h2o_cache($context->options);
         $term  = $context->resolve(':term');
         $hack  = $context->resolve(':hack');
-        
+
         $url   = $this->get_api_url($term, $hack);
         $feed  = @$this->fetch($context,$url)->xpath('//channel/item');
 
         $feed = @$this->filter($feed);
-    
+
         $context->set("api", $feed);
         $context->set("api_url", $url);
     }

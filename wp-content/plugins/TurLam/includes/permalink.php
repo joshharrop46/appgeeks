@@ -1,8 +1,8 @@
 <?php
 function spp_flush_rules() {
 	global $wp_rewrite;
-	
-	$wp_rewrite->flush_rules();	
+
+	$wp_rewrite->flush_rules();
 }
 
 function spp_add_rewrite_rules( $wp_rewrite ) {
@@ -22,15 +22,15 @@ function spp_query_vars($public_query_vars) {
 
 function spp_filter_query( $query) {
 	global $spp_settings;
-	
+
 	if ( is_search() ) {
 		foreach ($spp_settings->url_rewrites as $index => $rule) {
 			$query->query_vars['s'] = str_replace($rule['separator']," ",$query->query_vars['s']);
-		}		
+		}
 		$query->query_vars['s'] = str_replace("+"," ",$query->query_vars['s']);
 		$query->query_vars['s'] = ucwords($query->query_vars['s']);
 	}
-	
+
 	if(is_search()){
 		if(spp_contains_bad_words(get_search_query())){
 			header('HTTP/1.1 404 Not Found');
@@ -41,8 +41,8 @@ function spp_filter_query( $query) {
 }
 
 function firstword($term, $before){
-	$term = CoreFilters::hyphenize($term);
-	
+	$term = sanitize_title($term);
+
 	if(strpos($before,'(.*)') !== false){
 		$array_of_term = explode('-', $term);
 		$firstword     = isset($array_of_term[0]) ? $array_of_term[0] : $term;
@@ -57,7 +57,7 @@ function build_permalink_for($term, $url_rewrites_index)
 	global $spp_settings;
 
 	$rule          = $spp_settings->url_rewrites[$url_rewrites_index];
-	$term          = CoreFilters::hyphenize($term);
+	$term          = sanitize_title($term);
 	$term          = str_replace('-', $rule['separator'], $term);
 	$array_of_term = explode($rule['separator'], $term);
 	$first_word    = isset($array_of_term[0]) ? $array_of_term[0] : $term;

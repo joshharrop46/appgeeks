@@ -120,6 +120,20 @@ Boleh :D, jangan lupa makan2.</li>
               <div class="tab-pane" id="changelog">
                 <div class="page-header"><h4>Changelog History</h4></div>
                 <?php echo nl2br('
+## 1.7.5 Relese Notes:
+* BugFix: Bing Image ga muncul
+* Feature: Support PHP 7
+
+## 1.7.4 Release Notes:
+* Truncate keywords.txt
+
+## 1.7.3 Release Notes:
+* Fix stupidbot
+* fix css conflict with papercut
+				
+## 1.7.2 Release Notes:
+* Feature: Papercut Support                
+
 ## 1.7.1 Release Notes:
 * Bugfix: Campaign 0 Created
 * Bugfix: Cannot read terms from database
@@ -190,7 +204,7 @@ Buka file <strong>/<strong>Stupidpie/</strong>templates/widget.html</strong> l
 Pastikan setelah build_permalink_for nilainya 'first_word'
 <br><br>
                 <div class="page-header"><h4>Tutorial lain!!!</h4></div>
-            <a href="http://www.dojo.cc/category/stupidpie-tutorial/">Tutorial StupidPie</a>
+            <a href="https://www.dojo.cc/categories/artikel-tips-trik">Tutorial StupidPie, dll.</a>
               </div>
             </div>
           </div>
@@ -201,39 +215,16 @@ Pastikan setelah build_permalink_for nilainya 'first_word'
         <div class="well">
           <a target="_blank" id="postnow" href="plugin-editor.php?file=StupidPie%2Fsettings.php&plugin=StupidPie%2Fstupidpie.php" class="btn btn-primary btn-large">Ubah Setting</a>
         </div>
-        <div class="">
-          <div class="page-header"><h3>Sponsor</h3></div>
-          <ul class="nav nav-tabs nav-stacked">
-            <?php
-            $sponsors = '
-            <li><a target="_blank" href="http://handokotantra.net/?ref=stupidpie" title="Panduan Internet Marketing Newbie"><i class="icon-chevron-right"></i> Panduan Internet Marketing Newbie</a></li>
-            <li><a target="_blank" href="http://webdijual.com/" title="Website Brokerage &amp; Consultations"><i class="icon-chevron-right"></i> Layanan Jual Web Paling Maknyus</a></li>
-            
-            <li><a target="_blank" href="http://www.facebook.com/l.php?u=http%3A%2F%2Fwww.sugeng.org%2Fcara-membuat-aplikasi-android-berbasis-rss-feed%2F&h=QAQGD0_rk" title="Tuyul Android Creator"><i class="icon-chevron-right"></i> Tuyul Android Creator</a></li>
-            ';
-            $sponsors = explode("\n", $sponsors);
-            shuffle($sponsors);
-            for ($i=0; $i < 5; $i++) { 
-              echo $sponsors[$i];
-            }
-
-            ?>
-          </ul>
+        <div class="">          
           <div class="page-header"><h3>Bookmark</h3></div>
           <ul class="nav nav-tabs nav-stacked">
             <li><a target="_blank" href="http://www.facebook.com/groups/ninjaplugins/"><i class="icon-chevron-right"></i> Grup Dojo</a></li>
-            <li><a target="_blank" href="http://www.facebook.com/mochammad.masbuchin/"><i class="icon-chevron-right"></i> Blom Diinvite Kegrup? Hub. Buchin</a></li>
-              <li><a target="_blank" href="http://www.dojo.cc/category/kw/"><i class="icon-chevron-right"></i> Keyword Siap Pakai</a></li>
-              <li><a target="_blank" href="http://www.dojo.cc/category/pd/stupidpie-templates/"><i class="icon-chevron-right"></i> StupidPie Templates</a></li>
-              <li><a target="_blank" href="http://www.dojo.cc/category/pd/agc-theme/"><i class="icon-chevron-right"></i> AGC Theme</a></li>
-              <li><a target="_blank" href="http://www.dojo.cc"><i class="icon-chevron-right"></i> Produk Dojo lainnya</a></li>
+            <li><a target="_blank" href="http://www.facebook.com/mochammad.masbuchin.1/"><i class="icon-chevron-right"></i> Blom Diinvite Kegrup? Hub. Buchin</a></li>
             
           </ul>
           <div class="page-header"><h3>Tutorial</h3></div>
           <ul class="nav nav-tabs nav-stacked">
-            <li><a target="_blank" href="http://www.dojo.cc/category/pd/stupidpie-tutorial/"><i class="icon-chevron-right"></i> Tutorial StupidPie</a></li>
-            <li><a target="_blank" href="http://www.facebook.com/groups/ninjaplugins/files/"><i class="icon-chevron-right"></i> Tutorial Kontribusi Member </a></li>
-            
+            <li><a target="_blank" href="https://www.dojo.cc/categories/artikel-tips-trik"><i class="icon-chevron-right"></i> Tutorial Dojo</a></li>            
           </ul>
          
         </div>

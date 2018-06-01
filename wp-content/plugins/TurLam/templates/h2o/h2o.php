@@ -14,28 +14,28 @@ require H2O_ROOT.'h2o/context.php';
 /**
  * Example:
  *  $h2o = new H2O('./template.html', array("loader"=>'file'));
- *  
- *  
+ *
+ *
  *  $h2o = new H2O('template.html', array("loader"=>'hash'));
  */
 class H2o {
     var $searchpath;
     var $context;
     var $loader = false;
-    
+
     static $tags = array();
     static $filters = array();
     static $extensions = array();
-    
-    function getOptions($options = array()) {
+
+    static function getOptions($options = array()) {
         return array_merge(array(
-            'loader'            =>      'file',
+            'loader'            =>       'file',
             'cache'             =>      'file',     // file | apc | memcache
             'cache_prefix'      =>      'h2o_',
-            'cache_ttl'         =>      31536000,     // file | apc | memcache
+            'cache_ttl'         =>      3600,     // file | apc | memcache
             'searchpath'        =>      false,
             'autoescape'        =>      true,
-        
+
             // Enviroment setting
             'BLOCK_START'       =>      '{%',
             'BLOCK_END'         =>      '%}',
@@ -46,10 +46,10 @@ class H2o {
             'TRIM_TAGS'         =>      true
         ), $options);
     }
-    
-    function __construct($file = '', $options = array()) {
+
+    function __construct($file = null, $options = array()) {
         # Init a environment
-        $this->options = $this->getOptions($options);        
+        $this->options = $this->getOptions($options);
         $loader = $this->options['loader'];
 
         if (!$loader)
@@ -59,45 +59,47 @@ class H2o {
             $this->loader = $loader;
             $this->loader->setOptions($this->options);
         } else {
-            $loaderClass = "H2o_{$loader}_Loader";
-            if (!class_exists($loaderClass))
+            $loader = "H2o_{$loader}_Loader";
+            if (!class_exists($loader, false))
                 throw new Exception('Invalid template loader');
-                
-            if (isset($options['searchpath']))
-                $this->searchpath = realpath($options['searchpath']).DS;
-            else
+
+            if (isset($options['searchpath'])){
+                $this->searchpath = $options['searchpath'];
+            } else if ($file) {
                 $this->searchpath = dirname(realpath($file)).DS;
-            $this->loader = new $loaderClass($this->searchpath, $this->options);        
-        }
-        
-        if (isset($options['i18n'])) {
-            $i18n_options = array();            
-            if (is_array($options['i18n'])) {
-                $i18n_options = $options['i18n'];
+            } else {
+                $this->searchpath = getcwd().DS;
             }
-            
-            h2o::load('i18n');
-            $this->i18n = new H2o_I18n($this->searchpath, $i18n_options);
+
+            $loader_searchpath = is_array($this->searchpath) ? $this->searchpath : array($this->searchpath);
+            $this->loader = new $loader($loader_searchpath, $this->options);
         }
-        
         $this->loader->runtime = $this;
-        $this->nodelist = $this->loadTemplate($file);
+
+        if (isset($options['i18n'])) {
+            h2o::load('i18n');
+            $this->i18n = new H2o_I18n($this->searchpath, $options['i18n']);
+        }
+
+        if ($file) {
+            $this->nodelist = $this->loadTemplate($file);
+        }
     }
 
     function loadTemplate($file) {
         return $this->nodelist = $this->loader->read_cache($file);
     }
-    
+
     function loadSubTemplate($file) {
         return $this->loader->read($file);
     }
-    
+
     # Build a finalized nodelist from template ready to be cached
     function parse($source, $filename = '', $env = null) {
         if (!$env)
             $env = $this->options;
 
-        if (!class_exists('H2o_Parser'))
+        if (!class_exists('H2o_Parser', false))
             require H2O_ROOT.'h2o/parser.php';
 
         $parser = new H2o_Parser($source, $filename, $this, $env);
@@ -115,17 +117,17 @@ class H2o {
         if (!$this->context) {
             $this->context = new H2o_Context($this->defaultContext(), $this->options);
         }
-        
+
         # Extend or set value
         if (is_array($context)) {
             return $this->context->extend($context);
-        } 
+        }
         elseif (is_string($context)) {
             return $this->context[$context] = $value;
         }
         return false;
     }
-    
+
     # Render the nodelist
     function render($context = array()) {
         $this->set($context);
@@ -153,37 +155,37 @@ class H2o {
     /**
      * Register a new tag
      *
-     * 
+     *
      * h2o::addTag('tag_name', 'ClassName');
-     * 
+     *
      * h2o::addTag(array(
      *      'tag_name' => 'MagClass',
      *      'tag_name2' => 'TagClass2'
      * ));
      *
      *  h2o::addTag('tag_name');      // Tag_name_Tag
-     * 
-     * h2o::addTag(array('tag_name', 
+     *
+     * h2o::addTag(array('tag_name',
      * @param unknown_type $tag
      * @param unknown_type $class
      */
     static function addTag($tag, $class = null) {
         $tags = array();
         if (is_string($tag)) {
-            if (is_null($class)) 
+            if (is_null($class))
                 $class = ucwords("{$tag}_Tag");
             $tags[$tag] = $class;
         } elseif (is_array($tag)) {
             $tags = $tag;
         }
-        
+
         foreach ($tags as $tag => $tagClass) {
-            if (is_integer($tag)) {        
+            if (is_integer($tag)) {
                 unset($tags[$tag]);
                 $tag = $tagClass;
                 $tagClass = ucwords("{$tagClass}_Tag");
             }
-            if (!class_exists($tagClass)) {
+            if (!class_exists($tagClass, false)) {
                 throw new H2o_Error("{$tagClass} tag is not found");
             }
             $tags[$tag] = $tagClass;
@@ -207,7 +209,7 @@ class H2o {
                 self::addFilter($key, $filter);
             }
             return true;
-        } elseif (is_string($filter) && class_exists($filter) && is_subclass_of($filter, 'FilterCollection')) {
+        } elseif (is_string($filter) && class_exists($filter, false) && is_subclass_of($filter, 'FilterCollection')) {
             foreach (get_class_methods($filter) as $f) {
                 if (is_callable(array($filter, $f)))
                     self::$filters[$f] = array($filter, $f);
@@ -216,19 +218,19 @@ class H2o {
         }
         if (is_null($callback))
             $callback = $filter;
-            
+
         if (!is_callable($callback)) {
             return false;
         }
         self::$filters[$filter] = $callback;
     }
-    
+
     static function addLookup($callback) {
         if (is_callable($callback)) {
             H2o_Context::$lookupTable[] = $callback;
         } else die('damm it');
     }
-    
+
     static function load($extension, $file = null) {
         if (!$file) {
             $file = H2O_ROOT.'ext'.DS.$extension.'.php';
@@ -252,9 +254,9 @@ class H2o {
  */
 function h2o($name, $options = array()) {
     $is_file = '/([^\s]*?)(\.[^.\s]*$)/';
-    
+
     if (!preg_match($is_file, $name)) {
-        return H2o::parseString($name, $options); 
+        return H2o::parseString($name, $options);
     }
 
     $instance = new H2o($name, $options);

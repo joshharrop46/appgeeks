@@ -2,14 +2,14 @@
 /*
 Plugin Name: StupidPie
 Plugin URI: http://www.dojo.cc/stupidpie-agc-pack
-Description: StupidPie17 is a stupid content generator. RISK: your domain will be deindexed, your adsense account will be banned, your server will crash. Benefit: If done properly and you have a good facerank, it will generate tons of traffic. Should be done in massive amount of wordpress install. Please read admin menu for example usage.
-Author: AjariAkuAdsene
-Version: 1.7.1
+Description: StupidPie is a stupid content generator. RISK: your domain will be deindexed, your adsense account will be banned, your server will crash. Benefit: If done properly and you have a good facerank, it will generate tons of traffic. Should be done in massive amount of wordpress install. Please read admin menu for example usage.
+Author: Internet Marketing Dojo
+Version: 1.7.5
 Author URI: http://www.dojo.cc
 */
 define('SPP_PATH',  dirname(__FILE__));
 
-add_action( 'admin_init',  'spp_enqueue_styles' );
+add_action( 'admin_enqueue_scripts',  'spp_enqueue_styles' );
 add_action('admin_menu', 'spp_menus');
 
 
@@ -23,24 +23,34 @@ function spp_show_doc()
     include('view/docs.php');
 }
 
-function spp_enqueue_styles()
+function spp_enqueue_styles($hook)
 {
-	wp_register_style('spp_bootstrap', plugins_url('bootstrap/css/bootstrap-wpadmin.css',__FILE__ ));
+	if( 'toplevel_page_spp' != $hook && 'stupidpie_page_stupidbot' != $hook)
+		return;
+
+    wp_register_style('spp_bootstrap', plugins_url('bootstrap/css/bootstrap-wpadmin.css',__FILE__ ) , false , '2.0.3');
     wp_enqueue_style('spp_bootstrap');
     
-    wp_register_style('spp_bootstrap_fix', plugins_url('bootstrap/css/bootstrap-wpadmin-fixes.css',__FILE__ ));
+    wp_register_style('spp_bootstrap_fix', plugins_url('bootstrap/css/bootstrap-wpadmin-fixes.css',__FILE__ ) , false , null );
     wp_enqueue_style('spp_bootstrap_fix');
     
-    wp_register_style('spp_style', plugins_url('style.css',__FILE__ ));
-    wp_enqueue_style('spp_style');
     //wp_enqueue_script( 'spp_bootstrap_js_jquery', 'http://code.jquery.com/jquery-1.7.2.min.js' );
-    wp_enqueue_script( 'spp_bootstrap_js', plugins_url('bootstrap/js/bootstrap.min.js', __FILE__) );
+    wp_enqueue_script( 'spp_bootstrap_js', plugins_url('bootstrap/js/bootstrap.min.js', __FILE__) , false , '2.0.4' , true );
+
+
+    wp_register_style('spp_style', plugins_url('style.css',__FILE__ ) , false , null );
+    wp_enqueue_style('spp_style');
 }
 
-require_once('settings.php');
-require_once('stupidbot/stupidbot.php');
+require_once(SPP_PATH.'/settings.php');
 
-require_once('templates/h2o/h2o.php');
+if(!class_exists('H2o')){
+    require_once(SPP_PATH.'/templates/h2o/h2o.php');
+}
+
+if(!class_exists('phpQuery')){
+    require_once(SPP_PATH.'/includes/shared/pq.php');
+}
 
 
 foreach (glob(SPP_PATH."/includes/*.php") as $filename) {
@@ -50,14 +60,16 @@ foreach (glob(SPP_PATH."/includes/*.php") as $filename) {
 function spp($term = "", $template = 'default.html', $hack = ""){
     global $spp_settings;
     
-    $result = new h2o(
+    $result = h2o(
         SPP_PATH."/templates/$template", 
         array(  
             'safeClass' => array('SimpleXMLElement','stdClass')
         ));
-                
+	
     return $result->render(array('term'=>$term, 'hack' => $hack, 'settings' => $spp_settings, 'get' => $_GET));
 }
+
+require_once(SPP_PATH.'/stupidbot/stupidbot.php');
 
 register_activation_hook(__FILE__,'spp_set_activation');
 add_action('wp_head', 'spp_setinfo');

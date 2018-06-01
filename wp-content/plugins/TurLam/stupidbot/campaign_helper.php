@@ -16,7 +16,7 @@ class Stupidbot_Campaign_Helper{
 
     }
     
-    public function word_limiter($str, $limit = 100, $end_char = '&#8230;')
+    public static function word_limiter($str, $limit = 100, $end_char = '&#8230;')
     {
     	if (trim($str) == ''){
     		return $str;
